@@ -2,10 +2,6 @@
 
 ![inattentive_pedestrian](https://github.com/saadejazz/trusty/blob/main/examples/test3.gif)
 
-Trust in the context of autonomous systems can be classified into two types: human-to-system trust and system-to-human trust. Human-to-system trust has gained significant attention in the research literature, driven by the increasing complexity of autonomous systems and concerns regarding their black box nature, software bugs, and physical failures. Various techniques, such as personalization and increased transparency in automation, have been employed to enhance human trust in autonomous systems, including driverless cars and service robots.
-
-Although establishing trust between humans and autonomous systems is crucial, it is equally important to consider the concept of system-to-human trust. Designing safe robotic systems for human-populated environments poses a significant challenge due to the unpredictable behavior of humans. Unlike machines, humans are non-deterministic and can exhibit a wide range of behaviors and responses in various situations. This variability makes it difficult to design robotic systems that can anticipate and respond to human actions in a safe and efficient manner. 
-
 For the scope of this repository, trust is defined as the degree to which a robotic system can rely on a specific human or agent in the environment to actively maintain safety. By incorporating trust-awareness, a robotic system can adopt more assertive policies towards trusted agents while taking extra safety considerations for untrustworthy agents. This approach enables the system to strike a balance between performance and safety in human-robot interactions, optimizing its behavior based on the level of trust established with individual agents.
 
 Images contain rich information that can be extracted to estimate indicators of trust, referred to as behavior traits. For images of pedestrians in an autonomous driving system, indicators such as head pose, smartphone usage, age, and gait analysis can be appropriate traits for trust estimation. These behaviours all indicate distraction levels of pedestrians and the final trust at any time step can be formulated as a linear combination of one or more of these trait values at that time step. This work specifically provides an example for such a formulation of trust.
@@ -35,10 +31,10 @@ trust_estimator.predict(<list_of_image_paths>)
 
 ## Examples
 The output images have a rather complex visualization scheme. There are four pieces of information to each detected pedestrian, that are as follows:
-1. The trust value: A value between 0 and 1, with 0 being the least trustworthy and vice versa. This value is the aggregate of the behaviour trait confidence values (after smoothing)
-2. The color of the bounding box: this can be either of red, orange, or green which correspond to high, moderate, and low value for trust, discussed in the previous point.
-3. The color of the skeleton mask: this can be either of red, orange, or green corresponding to a high, moderate, or low threshold of eye contact detection - directly adapted from [looking](https://github.com/vita-epfl/looking)
-4. The letter alognside the trust value: this can be either of ```N```, ```U```, and ```Y``` corresponding to a low, medium, and high confidence for detection of smartphone usage. The letters are short for ```No smartphone```, ```Unsure about smartphone```, and ```Yes smartphone```.
+1. _The trust value:_ A value between 0 and 1, with 0 being the least trustworthy and vice versa. This value is the aggregate of the behaviour trait confidence values (after smoothing)
+2. _The color of the bounding box:_ this can be either of red, orange, or green which correspond to high, moderate, and low value for trust, discussed in the previous point.
+3. _The color of the skeleton mask:_ this can be either of red, orange, or green corresponding to a high, moderate, or low threshold of eye contact detection - directly adapted from [looking](https://github.com/vita-epfl/looking)
+4. _The letter alognside the trust value:_ this can be either of ```N```, ```U```, and ```Y``` corresponding to a low, medium, and high confidence for detection of smartphone usage. The letters are short for ```No smartphone```, ```Unsure about smartphone```, and ```Yes smartphone```.
 
 The categorical visualizations mentioned above are for the sake of simplicity. Internal calculations of trust are conducted using continuous variables.
 
