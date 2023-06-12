@@ -19,7 +19,8 @@ from trusty.utils.smato_detector import *
 from trusty.utils.network import *
 from trusty.utils.utils_predict import *
 
-from PIL import ImageFile, Image
+from PIL import ImageFile
+
 
 DOWNLOAD = None
 INPUT_SIZE = 51
@@ -83,7 +84,7 @@ class Predictor():
         model.load_state_dict(torch.load(os.path.join(self.path_model, 'LookingModel_LOOK+PIE.p'), map_location=self.device))
         model.eval()
         self.eye_model = model.to(self.device)
-        self.smato_model = keras.models.load_model("trusty/models/smato_efficientnet_m2", custom_objects = {"f1": f1})
+        self.smato_model = keras.models.load_model(SMATO_MODEL, custom_objects = {"f1": f1})
 
     def predict_look(self, boxes, keypoints, im_size, batch_wise = True):
         final_keypoints = []
@@ -118,10 +119,7 @@ class Predictor():
     def render_image(self, image, data, keypoints, pred_labels, image_name, transparency):
         open_cv_image = np.array(image) 
         open_cv_image = open_cv_image[:, :, ::-1].copy()
-        
-        scale = 0.007
-        imageWidth, imageHeight, _ = open_cv_image.shape
-        # font_scale = min(imageWidth,imageHeight)/(10/scale)
+
         mask = np.zeros(open_cv_image.shape, dtype=np.uint8)
 
         for i, label in enumerate(pred_labels):
@@ -152,15 +150,15 @@ class Predictor():
 
             # label for smato
             if dat["trust_smato"] > 0.8:
-                label += ", No smartphone"
+                label += ", N"
             elif dat["trust_smato"] > 0.3:
-                label += ", Unsure about smartphone"
+                label += ", U"
             else:
-                label += ", Detected smartphone"
+                label += ", Y"
 
-            bb.add(open_cv_image, *dat["bbox"][: -1], label, color)
+            bb.add(open_cv_image, *dat["bbox"][: -1], label, color = color)
 
-        out_path = os.path.join(self.path_out, image_name[:-4]+'_predictions.png')
+        out_path = os.path.join(self.path_out, image_name[:-4] + '_predictions.png')
         cv2.imwrite(out_path, open_cv_image)
 
     def predict(self, array_im):
@@ -216,7 +214,7 @@ class Predictor():
 
                     # calculate trust based on pose fluctuations
                     mean_diff = np.mean(np.sqrt(np.sum(np.square(current_pose - prev_pose))))
-                    trust_fluc = fluctuation_sensitvity/mean_diff
+                    trust_fluc = fluctuation_sensitvity/(mean_diff + 1e-4)
                     if trust_fluc > 1: trust_fluc = 1
                     dat["trust_fluc"] = trust_fluc
                     self.vars.trust_fluc[id_] = self.vars.trust_fluc[id_] * beta_fluc + trust_fluc * (1 - beta_fluc)

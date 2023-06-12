@@ -1,6 +1,7 @@
 # Project specific ignores
 output/
 jons/
+rgb/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
