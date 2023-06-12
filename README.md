@@ -1,4 +1,4 @@
-# TRUSTY &mdash; System-to-human Trust Estimation
+# TRUSTY - Pedestrian inattention estimation
 
 ![inattentive_pedestrian](https://github.com/saadejazz/trusty/blob/main/examples/test3.gif)
 
