@@ -1,3 +1,7 @@
+# Project specific ignores
+output/
+jons/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
