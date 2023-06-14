@@ -17,7 +17,7 @@ parser.add_argument('--long-edge', default=None, type=int, help='rescale the lon
 parser.add_argument('--loader-workers', default=None, type=int, help='number of workers for data loading')
 parser.add_argument('--precise-rescaling', dest='fast_rescaling', default=True, action='store_false', help='use more exact image rescaling (requires scipy)')
 parser.add_argument('--checkpoint_', default='tshufflenetv2k30', type=str, help='backbone model to use')
-parser.add_argument('--disable-cuda', action='store_true', help='disable CUDA')
+parser.add_argument('--disable-cuda',  action='store_true', help='disable CUDA')
 
 def init_predictor():
 

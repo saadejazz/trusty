@@ -28,10 +28,6 @@ FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
-print('OpenPifPaf version', openpifpaf.__version__)
-print('PyTorch version', torch.__version__)
-
-
 class Predictor():
     """
         Class definition for the predictor.
@@ -46,7 +42,7 @@ class Predictor():
         else:
             self.device = torch.device('cpu')
         args.device = self.device
-        print('device : {}'.format(self.device))
+        # print('device : {}'.format(self.device))
         self.predictor_ = load_pifpaf(args)
         self.path_model = 'trusty/models/predictor'
         try:
@@ -68,6 +64,7 @@ class Predictor():
         self.vars.create_var('trust_fluc', {})
         self.vars.create_var('trust_smato', {})
         self.vars.create_var('trust_eye', {})
+        self.vars.create_var('prev_trust', {})
 
     @staticmethod
     def scale_pose(keypoints, bbox):
@@ -80,7 +77,7 @@ class Predictor():
 
     def get_model(self):
         model = LookingModel(INPUT_SIZE)
-        print(self.device)
+        # print(self.device)
         model.load_state_dict(torch.load(os.path.join(self.path_model, 'LookingModel_LOOK+PIE.p'), map_location=self.device))
         model.eval()
         self.eye_model = model.to(self.device)
@@ -167,7 +164,7 @@ class Predictor():
 
         loader = self.predictor_.images(array_im)
 
-        for i, (pred_batch, _, meta_batch) in enumerate(tqdm(loader)):
+        for i, (pred_batch, _, meta_batch) in enumerate(loader):
             cpu_image = PIL.Image.open(array_im[i]).convert('RGB')
             
             pifpaf_outs = {
@@ -236,8 +233,17 @@ class Predictor():
                 trust = alpha_trust["smato"] * self.vars.trust_smato[id_] + \
                         alpha_trust["eye"] * self.vars.trust_eye[id_] + \
                         alpha_trust["fluc"] * self.vars.trust_fluc[id_]
-                dat["trust"] = trust
-                print("Trust for id {}: {}".format(id_, trust))
+                if f_trust_inc == 0:
+                    dat["trust"] = trust
+                else:
+                    if id_ in self.vars.prev_trust:
+                        dat["trust"] = self.vars.prev_trust[id_] + f_trust_inc * trust
+                    else:
+                        dat["trust"] = initial_trust_ratio * trust
+                    if dat["trust"] > 1.0: dat["trust"] = 1.0
+                    
+                    self.vars.prev_trust[id_] = dat["trust"]
+                # print("Trust for id {}: {}".format(id_, dat["trust"]))
 
             # render image with labels
             self.render_image(pifpaf_outs['image'], data, keypoints, pred_labels, im_name, transparency)
@@ -247,3 +253,5 @@ class Predictor():
             numero = im_name[: -4]
             with open(f"jons/{numero}.json", "w") as outfile:
                 json.dump(data, outfile, indent = 4)
+        
+        return data
