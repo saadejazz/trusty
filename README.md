@@ -13,6 +13,14 @@ The following three behaviour traits are considered, with each of the behaviour 
 2. Pose fluctuation - determined by change in pose (scaled with bounding boxes) between time frames - [openpifpaf](https://github.com/openpifpaf/openpifpaf) [[1]](1)
 3. Eye contact/gaze direction - a deep learning model built on top of OpenPifPaf: [looking](https://github.com/vita-epfl/looking) [[2]](2)
 
+## Understanding the Visualization
+The output images have a rather complex visualization scheme. There are four pieces of information to each detected pedestrian, that are as follows:
+1. _The trust value:_ A value between 0 and 1, with 0 being the least trustworthy and vice versa. This value is the aggregate of the behaviour trait confidence values (after smoothing)
+2. _The color of the bounding box:_ this can be either of red, orange, or green which correspond to high, moderate, and low value for trust, discussed in the previous point.
+3. _The color of the skeleton mask:_ this can be either of red, orange, or green corresponding to a high, moderate, or low threshold of eye contact detection - directly adapted from [looking](https://github.com/vita-epfl/looking)
+4. _The letter alognside the trust value:_ this can be either of ```N```, ```U```, and ```Y``` corresponding to a low, medium, and high confidence for detection of smartphone usage. The letters are short for ```No smartphone```, ```Unsure about smartphone```, and ```Yes smartphone```.
+
+The categorical visualizations mentioned above are for the sake of simplicity. Internal calculations of trust are conducted using continuous variables.
 
 ## Dynamics of Trust
 
@@ -36,14 +44,6 @@ trust_estimator.predict(<list_of_image_paths>)
 ```
 
 ## Examples
-The output images have a rather complex visualization scheme. There are four pieces of information to each detected pedestrian, that are as follows:
-1. _The trust value:_ A value between 0 and 1, with 0 being the least trustworthy and vice versa. This value is the aggregate of the behaviour trait confidence values (after smoothing)
-2. _The color of the bounding box:_ this can be either of red, orange, or green which correspond to high, moderate, and low value for trust, discussed in the previous point.
-3. _The color of the skeleton mask:_ this can be either of red, orange, or green corresponding to a high, moderate, or low threshold of eye contact detection - directly adapted from [looking](https://github.com/vita-epfl/looking)
-4. _The letter alognside the trust value:_ this can be either of ```N```, ```U```, and ```Y``` corresponding to a low, medium, and high confidence for detection of smartphone usage. The letters are short for ```No smartphone```, ```Unsure about smartphone```, and ```Yes smartphone```.
-
-The categorical visualizations mentioned above are for the sake of simplicity. Internal calculations of trust are conducted using continuous variables.
-
 Some examples for real-life scenarios are as follows:  
 
 ![smato_distracted](https://github.com/saadejazz/trusty/blob/main/examples/smato_distracted.gif)
