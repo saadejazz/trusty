@@ -6,6 +6,34 @@ For the scope of this repository, trust is defined as the degree to which a robo
 
 Images contain rich information that can be extracted to estimate indicators of trust, referred to as behavior traits. For images of pedestrians in an autonomous driving system, indicators such as head pose, smartphone usage, age, and gait analysis can be appropriate traits for trust estimation. These behaviours all indicate distraction levels of pedestrians and the final trust at any time step can be formulated as a linear combination of one or more of these trait values at that time step. This work specifically provides an example for such a formulation of trust.
 
+## More Examples
+
+This section shows three more scenarios: 
+
+### One person passing a cross-walk
+
+<p float="left">
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/single.gif" width="500" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/single.gif" width="500" /> 
+</p>
+
+### Multiple roadside pedestrians
+
+<p float="left">
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/roadside.gif" width="500" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/roadside.gif" width="500" /> 
+</p>
+
+### Multiple pedestrians passing a crosswalk
+
+<p float="left">
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/crossing.gif" width="500" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/crossing.gif" width="500" /> 
+</p>
+
+
+One can note that in the case of multiple pedestrians,the pedestrian detection fails in complex sceanrios i.e., when the pedestrians overlap; in which case the tracking fails and the trust estimation is restarted from scratch when that pedestrian is re-identified. This problem can be alleviated by using more advanced pedestrian detection algorithms. One such option could be Yolo v8.
+
 ## Behaviour Traits
 
 The following three behaviour traits are considered, with each of the behaviour trait resulting in a continuous confidence value bounded between 0 and 1. The final aggregated trust is just a linear combination of those values.
