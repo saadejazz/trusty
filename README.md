@@ -71,7 +71,7 @@ trust_estimator = init_predictor()
 trust_estimator.predict(<list_of_image_paths>)
 ```
 
-## Examples
+## Some more examples
 Some examples for real-life scenarios are as follows:  
 
 ![smato_distracted](https://github.com/saadejazz/trusty/blob/main/examples/smato_distracted.gif)
