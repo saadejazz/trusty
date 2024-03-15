@@ -13,22 +13,22 @@ This section shows three more scenarios:
 ### One person passing a cross-walk
 
 <p float="left">
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/single.gif" width="500" />
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/single.gif" width="500" /> 
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/single.gif" width="600" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/single.gif" width="600" /> 
 </p>
 
 ### Multiple roadside pedestrians
 
 <p float="left">
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/roadside.gif" width="500" />
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/roadside.gif" width="500" /> 
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/roadside.gif" width="600" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/roadside.gif" width="600" /> 
 </p>
 
 ### Multiple pedestrians passing a crosswalk
 
 <p float="left">
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/crossing.gif" width="500" />
-  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/crossing.gif" width="500" /> 
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/orig/crossing.gif" width="600" />
+  <img src="https://github.com/saadejazz/trusty/blob/main/examples/processed/crossing.gif" width="600" /> 
 </p>
 
 
