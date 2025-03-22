@@ -6,6 +6,17 @@ For the scope of this repository, trust is defined as the degree to which a robo
 
 Images contain rich information that can be extracted to estimate indicators of trust, referred to as behavior traits. For images of pedestrians in an autonomous driving system, indicators such as head pose, smartphone usage, age, and gait analysis can be appropriate traits for trust estimation. These behaviours all indicate distraction levels of pedestrians and the final trust at any time step can be formulated as a linear combination of one or more of these trait values at that time step. This work specifically provides an example for such a formulation of trust.
 
+This module is part of the following [paper](https://ieeexplore.ieee.org/abstract/document/10737454).
+```
+@article{ejaz2024trust,
+  title={Trust-aware safe control for autonomous navigation: Estimation of system-to-human trust for trust-adaptive control barrier functions},
+  author={Ejaz, Saad and Inoue, Masaki},
+  journal={IEEE Transactions on Control Systems Technology},
+  year={2024},
+  publisher={IEEE}
+}
+```
+
 ## More Examples
 
 This section shows three more scenarios: 
